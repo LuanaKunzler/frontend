@@ -1,0 +1,68 @@
+<div class="reset-details">
+    <div class="title">
+      <p>Informações Pessoais</p>
+    </div>
+    <hr>
+    <div *ngIf="innerLoading" class="loader"></div>
+    <ngb-toast [class]="'bg-danger text-light'" *ngIf="errorAlertVisible" [autohide]="true" [delay]="5000" (hidden)="errorAlertVisible = false">
+      Um erro ocorreu. Atualize sua página.
+      <button type="button" class="btn-close" aria-label="Fechar" (click)="errorAlertVisible = false"></button>
+    </ngb-toast>
+    
+    <ngb-toast [class]="'bg-success text-light'" *ngIf="successAlertVisible" [autohide]="true" [delay]="5000" (hidden)="successAlertVisible = false">      
+      Seu perfil foi atualizado com sucesso!
+      <button type="button" class="btn-close" aria-label="Fechar" (click)="successAlertVisible = false"></button>
+    </ngb-toast> 
+    <div *ngIf="!innerLoading">
+      <form [formGroup]="detailsForm" (ngSubmit)="onSubmitDetailsForm()">
+        <div class="info row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="firstName">Nome</label>
+              <input type="text" id="firstName" class="form-control" name="firstName" formControlName="firstName"
+                [maxlength]="52">
+              <span *ngIf="detailsForm.get('firstName').invalid && detailsForm.get('firstName').touched">
+                <span *ngIf="detailsForm.get('firstName').errors['required']" class="alert-danger">Este campo é obrigatório!</span>
+              </span>
+            </div>
+          </div>
+  
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="lastName">Sobrenome</label>
+              <input type="text" id="lastName" class="form-control" name="lastName" formControlName="lastName"
+                [maxlength]="52">
+              <span *ngIf="detailsForm.get('lastName').invalid && detailsForm.get('lastName').touched">
+                <span *ngIf="detailsForm.get('lastName').errors['required']" class="alert-danger">Este campo é obrigatório!</span>
+              </span>
+            </div>
+          </div>
+  
+        </div>
+        <div class="info row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="phone">Telefone</label>
+              <input type="text" id="phone" class="form-control" name="phone" formControlName="phone" [maxlength]="15" mask="(00) 00000-0000">
+              <span *ngIf="detailsForm.get('phone').invalid && detailsForm.get('phone').touched" class="alert-danger">
+                Insira um número de telefone válido!
+              </span>
+            </div>
+          </div>
+          <div class="col-md-6">
+  
+          </div>
+        </div>
+  
+        <div class="row controls">
+          <div class="col-md-12">
+            <button class="btn btn-info" type="submit" [disabled]="detailsForm.invalid || detailsForm.pending">
+              <p>Atualizar</p>
+            </button>
+          </div>
+  
+        </div>
+      </form>
+    </div>
+  </div>
+  

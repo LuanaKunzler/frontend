@@ -1,0 +1,78 @@
+form {
+  padding: 30px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.new-product-content {
+  border-radius: 10px;
+}
+
+.new-product-title {
+  padding-top: 20px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.new-products-buttons {
+  padding: 30px;
+  padding-top: 0;
+  display: flex;
+  justify-content: left;
+}
+
+.cancel-btn {
+  font-weight: bold;
+  border-radius: 10px;
+  margin-left: 10px;
+}
+
+.save-btn {
+  font-weight: bold;
+  border-radius: 10px;
+}
+
+.preview-image {
+  width: 180px;
+  height: 180px;
+}
+
+.image-render {
+  width: 180px;
+  height: 180px;
+}
+
+.no-image {
+  border: 1px solid #333;
+  width: 180px;
+  height: 180px;
+}
+
+.d-flex {
+  margin-top: 20px;
+}
+
+.custom-file-input {
+  padding: 0.25rem 0.25rem;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  width: 300px;
+}
+
+.clear-field {
+  margin-left: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 10px;
+  border: none;
+  p {
+    margin: 0;
+    color: #333;
+  }
+}

@@ -1,0 +1,132 @@
+<div class="list-orders container">
+
+    <div class="title row">
+      <div class="col-md-12">
+        <p>Pedidos</p>
+      </div>
+    </div>
+    <hr>
+  
+    <div *ngIf="fetchError" class="row">
+      <div class="col-md-12">
+        <div class="alert-warning">Um erro ocorreu. Por favor, tente novamente.</div>
+      </div>
+    </div>
+  
+    <div *ngIf="noOrders" class="row">
+      <div class="col-md-12">
+        <p class="no-order">Você não tem nenhum pedido. <a routerLink="/browse">Compre agora!</a></p>
+      </div>
+    </div>
+  
+    <div *ngIf="innerLoading" class="loader"></div>
+  
+    <div *ngIf="!fetchError" class="row">
+      <div *ngFor="let order of orders" class="order col-md-12">
+        <div class="order-title">
+          <div class="row">
+            <div class="col-md-3">
+              <p>Pedido: <span>#{{order.id}}</span></p>
+            </div>
+            <div class="date col-md-6">
+              <p>Data: <span>{{convertDate(order.date) }}</span></p>
+            </div>
+            <div class="status col-md-3">
+              <p>Status: <span>{{formatStatus(order.shipped)}}</span></p>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-7 left-panel">
+            <div class="row">
+              <div class="col-md-6 col-6">
+                <p>Nome: <span>{{order.shipName}}</span></p>
+              </div>
+              <div class="col-md-6 col-6">
+                <p>Telefone: <span mask="(00) 0000-0000">{{order.phone}}</span></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-6">
+                <p>País: <span>{{order.country}}</span></p>
+              </div>
+              <div class="col-md-6 col-6">
+                <p>Cidade: <span>{{order.city}}</span></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-6">
+                <p>Estado: <span>{{order.state}}</span></p>
+              </div>
+              <div class="col-md-6 col-6">
+                <p>Cep: <span>{{order.zip}}</span></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-6">
+                <p>Frete: <span>{{order.totalCargoPrice  | currency: 'BRL'}}</span></p>
+              </div>
+              <div class="col-md-6 col-6">
+                <p>Preço Total: <span>{{ order.totalPrice  | currency: 'BRL' }}</span></p>
+              </div>
+            </div>
+            <div class="row" *ngIf="order.discount">
+              <div class="col-md-6 col-6">
+                <p>Desconto: <span>{{order.discount.discountPercent}}%</span></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 col-12">
+                <p>Endereço de entrega: <span>{{order.shipAddress}}</span></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 col-12">
+                <p>Endereço de cobrança: <span>{{order.billingAddress}}</span></p>
+              </div>
+            </div>
+  
+          </div>
+          <div class="col-md-5 right-panel">
+            <div class="row item-list">
+              <div *ngFor="let orderDetail of order.orderItems" class="col-md-12 col-12 pb-4">
+                <div class="row item" (click)="goToItem(orderDetail.bookUrl)">
+                  <div class="col-md-4">
+                    <img src="{{orderDetail.imageUrl}}" alt="{{orderDetail.title}}">
+                  </div>
+                  <div class="col-md-8 details">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p class="book-title">{{orderDetail.title}}</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <p class="amount">Quantidade: <span>{{orderDetail.amount}}</span></p>
+                      </div>
+                      <div class="col-md-6">
+                        <p class="price">{{orderDetail.price  | currency: 'BRL'}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+          </div>
+          <hr>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row bottom">
+      <div class="col md-12 col-12">
+        <ngb-pagination *ngIf="!noOrders" [collectionSize]="collectionSize" [pageSize]="pageSize" [(page)]="page"
+          [rotate]="true" [maxSize]="5" (pageChange)="pageNavigation()" class="d-flex justify-content-end"
+          aria-label="pagination"></ngb-pagination>
+      </div>
+    </div>
+  
+  </div>
+  

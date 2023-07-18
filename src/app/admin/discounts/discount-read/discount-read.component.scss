@@ -1,0 +1,75 @@
+.table-container {
+    border-radius: 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin-right: 20px;
+    margin-left: 20px;
+    padding-bottom: 25px;
+  }
+  
+  .paginator-mat {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .full-width-table {
+    width: 100%;
+    max-width: 1000px;
+    border-collapse: collapse;
+    border-radius: 10px;
+  }
+  
+  .edit {
+    margin-right: 5px;
+  }
+  
+  .edit > i {
+    color: #673ab7;
+  }
+  
+  .delete > i {
+    color: #e35e6b;
+  }
+  
+  .discount-content {
+    border-radius: 10px;
+  }
+
+  .read-discounts-title {
+    padding-top: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .btn-discounts {
+    border-radius: 10px;
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .mat-table-responsive {
+    overflow-x: auto;
+    display: block;
+  }
+  
+  .export-button {
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-left: 20px;
+  }
+  
+  .buttons-discount {
+    display: flex;
+    justify-content: left;
+  }

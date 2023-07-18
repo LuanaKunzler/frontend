@@ -1,0 +1,330 @@
+<div class="mat-elevation-z8 update-order-content">
+  <div class="update-order-title">Pedido</div>
+  <div *ngIf="innerLoading" class="loader-admin"></div>
+  <div *ngIf="!innerLoading">
+    <form
+      [formGroup]="updateOrderForm"
+      id="updateOrderForm"
+      (ngSubmit)="updateOrder()"
+    >
+      <div class="info row">
+        <h2>Informações do Cliente</h2>
+        <div class="col-md-6 mb-3">
+          <div class="form-group">
+            <label for="firstName">Nome Completo</label>
+            <input
+              type="text"
+              id="firstName"
+              class="form-control"
+              [value]="order?.user?.firstName + ' ' + order?.user?.lastName"
+              [disabled]="true"
+            />
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="text"
+              id="email"
+              class="form-control"
+              [value]="order?.user?.email"
+              [disabled]="true"
+            />
+          </div>
+        </div>
+        <div class="col-md-6 mb-4">
+          <div class="form-group">
+            <label for="phone">Telefone</label>
+            <input
+              type="text"
+              id="phone"
+              class="form-control"
+              [value]="order?.user?.phone"
+              [disabled]="true"
+              mask="(00) 00000-0000"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="order-details mb-4">
+        <h2>Detalhes do Pedido</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Título do Livro</th>
+              <th>Descrição</th>
+              <th>ISBN</th>
+              <th>Preço Unitário</th>
+              <th>Quantidade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let orderDetail of order?.orderDetailList">
+              <td>{{ orderDetail?.id }}</td>
+              <td>{{ orderDetail?.book?.title }}</td>
+              <td>{{ orderDetail?.book?.longDesc }}</td>
+              <td>{{ orderDetail?.book?.isbn }}</td>
+              <td>{{ orderDetail?.book?.unitPrice | currency : "BRL" }}</td>
+              <td>{{ orderDetail?.amount }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="info row">
+        <div class="shipping-info">
+          <h2>Informações de Envio</h2>
+          <div class="col-md-6 mb-3">
+            <div class="form-group">
+              <label for="shipName">Destinatário</label>
+              <input
+                type="text"
+                id="shipName"
+                class="form-control"
+                [value]="order?.shipName"
+                [disabled]="false"
+              />
+            </div>
+          </div>
+          <div class="col-md-12 mb-3">
+            <div class="form-group">
+              <label for="shipAddress">Endereço de Envio</label>
+              <textarea
+                type="text"
+                id="shipAddress"
+                class="form-control"
+                [disabled]="false"
+                >{{ order?.shipAddress }}</textarea
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <div class="form-group">
+            <label for="city">Cidade</label>
+            <input
+              type="text"
+              id="city"
+              class="form-control"
+              [value]="order?.city"
+              [disabled]="false"
+            />
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <div class="form-group">
+            <label for="state">Estado</label>
+            <input
+              type="text"
+              id="state"
+              class="form-control"
+              [value]="order?.state"
+              [disabled]="false"
+            />
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <div class="form-group">
+            <label for="zip">CEP</label>
+            <input
+              type="text"
+              id="zip"
+              class="form-control"
+              [disabled]="false"
+              [value]="order?.zip"
+              mask="00000-000"
+            />
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+          <div class="form-group">
+            <label for="country">País</label>
+            <input
+              type="text"
+              id="country"
+              class="form-control"
+              [disabled]="false"
+              [value]="order?.country"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="order-summary">
+        <h2>Resumo do Pedido</h2>
+        <div class="info row">
+          <div class="col-md-6 mb-3">
+            <div class="info row">
+              <div class="col-md-4 mb-3">
+                <div class="form-group">
+                  <label for="date">Data</label>
+                  <input
+                    type="text"
+                    id="date"
+                    class="form-control"
+                    [disabled]="true"
+                    [value]="order?.date"
+                    [disabled]="true"
+                  />
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <div class="form-group">
+                  <label for="totalPrice">Total</label>
+                  <input
+                    type="text"
+                    id="totalPrice"
+                    class="form-control"
+                    [disabled]="false"
+                    [value]="order?.totalPrice"
+                    [disabled]="true"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="info row">
+              <div class="col-md-4 mb-3">
+                <div class="form-group">
+                  <label for="discountPercent">Desconto</label>
+                  <input
+                    type="text"
+                    id="discountPercent"
+                    class="form-control"
+                    [disabled]="false"
+                    [value]="order?.discount?.discountPercent"
+                    [disabled]="true"
+                  />
+                </div>
+              </div>
+              <div class="col-md-4 mb-4">
+                <div class="form-group">
+                  <label for="totalCargoPrice">Frete</label>
+                  <input
+                    type="text"
+                    id="totalCargoPrice"
+                    class="form-control"
+                    [disabled]="false"
+                    [value]="order?.totalCargoPrice"
+                    [disabled]="true"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <div class="col-6 mb-4">
+              <div class="form-group">
+                <label for="shipped">Status</label>
+                <div class="d-flex mt-2">
+                  <input
+                    type="radio"
+                    id="inPreparation"
+                    name="shipped"
+                    value="IN_PREPARATION"
+                    formControlName="shipped"
+                    [checked]="
+                      updateOrderForm.get('shipped')?.value === 'IN_PREPARATION'
+                    "
+                  />
+                  <label for="inPreparation">Preparando</label>
+                </div>
+                <div class="d-flex mt-2">
+                  <input
+                    type="radio"
+                    id="sent"
+                    name="shipped"
+                    value="SENT"
+                    formControlName="shipped"
+                    [checked]="updateOrderForm.get('shipped')?.value === 'SENT'"
+                  />
+                  <label for="sent">Enviado</label>
+                </div>
+                <div class="d-flex mt-2">
+                  <input
+                    type="radio"
+                    id="finished"
+                    name="shipped"
+                    value="FINISHED"
+                    formControlName="shipped"
+                    [checked]="
+                      updateOrderForm.get('shipped')?.value === 'FINISHED'
+                    "
+                  />
+                  <label for="finished">Finalizado</label>
+                </div>
+                <div class="d-flex mt-2">
+                  <input
+                    type="radio"
+                    id="canceled"
+                    name="shipped"
+                    value="CANCELED"
+                    formControlName="shipped"
+                    [checked]="
+                      updateOrderForm.get('shipped')?.value === 'CANCELED'
+                    "
+                  />
+                  <label for="canceled">Cancelado</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="info row">
+          <h2>Informações de transporte</h2>
+          <div class="col-md-6 mb-3">
+            <div class="form-group">
+              <label for="cargoFirm">Transportadora</label>
+              <input
+                type="text"
+                id="cargoFirm"
+                class="form-control"
+                formControlName="cargoFirm"
+                [value]="order?.cargoFirm"
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="trackingNumber">Código de rastreio</label>
+              <input
+                type="text"
+                id="trackingNumber"
+                class="form-control"
+                formControlName="trackingNumber"
+                [value]="order?.trackingNumber"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="update-orders-buttons">
+      <button
+        class="save-btn"
+        type="submit"
+        form="updateOrderForm"
+        mat-button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="updateOrderForm.invalid || updateOrderForm.pending"
+      >
+        Salvar
+      </button>
+      <button
+        class="cancel-btn"
+        mat-button
+        mat-raised-button
+        (click)="cancel()"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>

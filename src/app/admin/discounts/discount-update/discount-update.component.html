@@ -1,0 +1,98 @@
+<div class="modal-content">
+  <div class="discount-title">Editar Desconto</div>
+  <div class="update-discount-content" *ngIf="!innerLoading">
+    <form
+      [formGroup]="updateDiscountForm"
+      id="updateDiscountForm"
+      (ngSubmit)="onUpdate()"
+    >
+      <div class="info row">
+        <div class="mb-3">
+          <div class="form-group">
+            <label for="code">Código</label>
+            <input
+              type="text"
+              id="code"
+              class="form-control"
+              name="code"
+              formControlName="code"
+              [maxlength]="52"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <div class="form-group">
+            <label for="discountPercent">Porcentagem</label>
+            <input
+              type="text"
+              id="discountPercent"
+              class="form-control"
+              name="discountPercent"
+              formControlName="discountPercent"
+              [maxlength]="52"
+            />
+          </div>
+        </div>
+
+        <div>
+          <div class="form-group">
+            <label for="status">Status</label>
+            <div class="d-flex mt-2">
+              <input
+                type="radio"
+                id="statusTrue"
+                name="status"
+                value="1"
+                formControlName="status"
+              />
+              <label for="statusTrue">Ativo</label>
+            </div>
+            <div class="d-flex mt-1">
+              <input
+                type="radio"
+                id="statusFalse"
+                name="status"
+                value="0"
+                formControlName="status"
+              />
+              <label for="statusFalse">Inativo</label>
+            </div>
+            <span
+              *ngIf="
+                updateDiscountForm.get('status')?.invalid &&
+                updateDiscountForm.get('status')?.touched
+              "
+              class="alert-danger"
+            >
+              Este campo é obrigatório!
+            </span>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="update-discount-buttons">
+      <button
+        class="save-btn"
+        type="submit"
+        form="updateDiscountForm"
+        mat-button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="updateDiscountForm.invalid || updateDiscountForm.pending"
+      >
+        Salvar
+      </button>
+      <button
+        class="cancel-btn"
+        mat-button
+        mat-raised-button
+        type="button"
+        (click)="onCancel()"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>

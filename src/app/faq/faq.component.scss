@@ -1,0 +1,53 @@
+/* Override ng-bootstrap default accordion component*/
+
+.faq {
+  position: relative;
+  top: 150px;
+  min-height: 50vh;
+}
+
+.faq .title p {
+  margin: 0;
+  font-weight: bold;
+  color: black;
+}
+
+.faq .card {
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+  
+.faq .card-header {
+  padding: 10px 15px;
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  background-color: #f4ea39;
+  opacity: 90%;
+}
+
+
+
+.faq .card-header button {
+  display: none;
+}
+
+.faq .card-header h5 {
+  color: #333;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: left;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.faq .card-header h5:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.faq .card-body {
+  padding: 15px;
+}

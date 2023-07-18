@@ -1,0 +1,23 @@
+<div class="related" *ngIf="!fetchError">
+    <div class="col-md-12">
+      <h3 class="title">Livros Relacionados</h3>
+    </div>
+    <div *ngIf="innerLoading" class="loader"></div>
+    <div *ngIf="!innerLoading" class="scroll-left" (click)="scrollLeft()"></div>
+    <div *ngIf="!innerLoading" class="related-cards" #relatedCards>
+      <div class="related-card col-lg-3 col-md-6 col-12" *ngFor="let r of relatedBooks; let i = index"
+        id="related-card-{{i}}">
+        <a routerLink="/book/{{r.bookUrl}}">
+          <img src="{{r.imageUrl}}" alt="{{r.title}}">
+          <hr>
+          <p class="book-title">{{r.title}}</p>
+          <div class="row">
+            <div class="col-md-6">
+              <p>{{r.unitPrice  | currency: 'BRL'}}</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div *ngIf="!innerLoading" class="scroll-right" (click)="scrollRight()"></div>
+  </div>

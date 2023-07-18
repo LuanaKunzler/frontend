@@ -1,0 +1,27 @@
+<div class="interested" *ngIf="!fetchError">
+    <div class="container">
+      <div class="col-md-12">
+        <h3 class="title">Você pode se interessar</h3>
+      </div>
+      <div *ngIf="(showcaseState | async)?.loading?.includes('INTERESTED')" class="loader"></div>
+      <div *ngIf="!(showcaseState | async)?.loading?.includes('INTERESTED')" class="scroll-left" (click)="scrollLeft()">
+      </div>
+      <div *ngIf="!(showcaseState | async)?.loading?.includes('INTERESTED')" class="interested-cards" #interestedCards>
+        <div class="interested-card col-lg-3 col-md-6 col-12" *ngFor="let i of (showcaseState | async)?.interested">
+          <a routerLink="/book/{{i.bookUrl}}">
+            <img src="{{i.imageUrl}}" alt="book image">
+            <hr>
+            <p class="book-title">{{i.title}}</p>
+            <div class="row">
+              <div class="col-md-6">
+                <p>{{i.unitPrice  | currency: 'BRL'}}</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div *ngIf="!(showcaseState | async)?.loading?.includes('INTERESTED')" class="scroll-right" (click)="scrollRight()">
+      </div>
+    </div>
+  </div>
+  

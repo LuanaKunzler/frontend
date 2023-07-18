@@ -1,0 +1,243 @@
+<div class="mat-elevation-z8 update-user-content">
+  <div class="update-user-title">Editar Usuário</div>
+  <div *ngIf="innerLoading" class="loader-admin"></div>
+  <div *ngIf="!innerLoading">
+    <form
+      [formGroup]="updateUserForm"
+      id="updateUserForm"
+      (ngSubmit)="updateUser()"
+    >
+      <div class="info row">
+        <div class="col-6 mb-3">
+          <div class="form-group">
+            <label for="firstName">Nome</label>
+            <input
+              type="text"
+              id="firstName"
+              class="form-control"
+              name="firstName"
+              formControlName="firstName"
+              [maxlength]="52"
+            />
+          </div>
+        </div>
+
+        <div class="col-6 mb-3">
+          <div class="form-group">
+            <label for="lastName">Sobrenome</label>
+            <input
+              type="text"
+              id="lastName"
+              class="form-control"
+              name="lastName"
+              formControlName="lastName"
+              [maxlength]="52"
+            />
+          </div>
+        </div>
+
+        <div class="col-6 mb-3">
+          <div class="form-group">
+            <label for="phone">Telefone</label>
+            <input
+              type="text"
+              id="phone"
+              class="form-control"
+              name="phone"
+              formControlName="phone"
+              [maxlength]="15"
+              mask="(00) 00000-0000"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="info row">
+        <div class="col-6 mb-3">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="text"
+              id="email"
+              class="form-control"
+              name="email"
+              formControlName="email"
+              [maxlength]="240"
+            />
+            <span
+              *ngIf="
+                updateUserForm.get('email')?.invalid &&
+                updateUserForm.get('email')?.touched
+              "
+              class="alert-danger"
+            >
+              Por favor digite um email válido!
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="info row">
+        <div class="col-12 mb-3">
+          <div class="form-group">
+            <label for="address">Endereço</label>
+            <textarea
+              type="text"
+              id="address"
+              class="form-control"
+              name="address"
+              formControlName="address"
+              rows="3"
+            >
+            </textarea>
+          </div>
+        </div>
+      </div>
+      <div class="info row">
+        <div class="col-6 mb-3">
+          <div class="form-group">
+            <label for="city">Cidade</label>
+            <input
+              type="text"
+              id="city"
+              class="form-control"
+              name="city"
+              formControlName="city"
+              [maxlength]="240"
+            />
+          </div>
+        </div>
+        <div class="col-6 mb-3">
+          <div class="form-group">
+            <label for="state">Estado</label>
+            <input
+              type="text"
+              id="state"
+              class="form-control"
+              name="state"
+              formControlName="state"
+              [maxlength]="240"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="info row">
+        <div class="col-6 mb-3">
+          <div class="form-group">
+            <label for="zip">Cep</label>
+            <input
+              type="text"
+              id="zip"
+              class="form-control"
+              name="zip"
+              formControlName="zip"
+              [maxlength]="9"
+              [minlength]="5"
+              mask="00000-000"
+            />
+          </div>
+        </div>
+
+        <div class="col-6 mb-3">
+          <div class="form-group">
+            <label for="country">País</label>
+            <input
+              type="text"
+              id="country"
+              class="form-control"
+              name="country"
+              formControlName="country"
+              [maxlength]="240"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="info row">
+        <div class="col-6 mb-3">
+          <div class="form-group">
+            <label for="role">Permissão</label>
+            <div class="d-flex mt-2">
+              <input
+                type="checkbox"
+                id="roleAdmin"
+                name="roleAdmin"
+                value="ROLE_ADMIN"
+                [checked]="isAdminChecked"
+                (change)="toggleRole('ROLE_ADMIN', $event)"
+              />
+              <label for="roleAdmin">Administrador</label>
+            </div>
+            <div class="d-flex mt-1">
+              <input
+                type="checkbox"
+                id="roleUser"
+                name="roleUser"
+                value="ROLE_USER"
+                [checked]="isUserChecked"
+                (change)="toggleRole('ROLE_USER', $event)"
+              />
+              <label for="roleUser">Usuário</label>
+            </div>
+            <span
+              *ngIf="
+                updateUserForm.get('role')?.invalid &&
+                updateUserForm.get('role')?.touched
+              "
+              class="alert-danger"
+            >
+              Este campo é obrigatório!
+            </span>
+          </div>
+        </div>
+
+        <div class="col-6 mb-3">
+          <div class="form-group">
+            <label for="enabled">Status</label>
+            <div class="d-flex mt-2">
+              <input
+                type="radio"
+                id="enabledTrue"
+                name="enabled"
+                value="true"
+                formControlName="enabled"
+              />
+              <label for="enabledTrue">Ativo</label>
+            </div>
+            <div class="d-flex mt-1">
+              <input
+                type="radio"
+                id="enabledFalse"
+                name="enabled"
+                value="false"
+                formControlName="enabled"
+              />
+              <label for="enabledFalse">Inativo</label>
+            </div>
+            <span
+              *ngIf="
+                updateUserForm.get('enabled')?.invalid &&
+                updateUserForm.get('enabled')?.touched
+              "
+              class="alert-danger"
+            >
+              Este campo é obrigatório!
+            </span>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="update-users-buttons">
+      <button
+        class="save-btn"
+        type="submit"
+        form="updateUserForm"
+        mat-button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="updateUserForm.invalid || updateUserForm.pending"
+      >
+        Salvar
+      </button>
+      <button class="cancel-btn" mat-button mat-raised-button (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+</div>

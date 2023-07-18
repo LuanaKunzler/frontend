@@ -1,0 +1,35 @@
+<mat-toolbar class="admin-header fixed-top">
+  <button mat-icon-button (click)="toggleSidenav()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <a class="logo" alt="logo" routerLink="/admin">Pandora</a>
+
+  <div class="header-btn">
+    <button
+      mat-raised-button
+      class="user-mode"
+      color="primary"
+      *ngIf="
+        router.url.includes('/admin') &&
+        (authorizationState | async)?.authenticated &&
+        (authorizationState | async)?.userRole?.includes('ROLE_USER')
+      "
+      (click)="switchToUserMode()"
+    >
+      Perfil Cliente
+    </button>
+
+    <button
+      mat-button
+      color="primary"
+      class="logout-admin"
+      *ngIf="
+        router.url.includes('/admin') &&
+        (authorizationState | async)?.authenticated
+      "
+      (click)="userSignOut()"
+    >
+      <p><i class="fa fa fa-sign-out" aria-hidden="true"></i> Sair</p>
+    </button>
+  </div>
+</mat-toolbar>

@@ -1,0 +1,36 @@
+form {
+  padding: 30px;
+}
+
+.update-user-content {
+  border-radius: 10px;
+}
+
+.update-user-title {
+  padding-top: 20px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.update-users-buttons {
+  padding: 30px;
+  display: flex;
+  justify-content: left;
+}
+
+.cancel-btn {
+  font-weight: bold;
+  border-radius: 10px;
+  margin-left: 10px;
+}
+
+.save-btn {
+  font-weight: bold;
+  border-radius: 10px;
+}

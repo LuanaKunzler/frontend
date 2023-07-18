@@ -1,0 +1,179 @@
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+<div class="signup container">
+  <div class="title row">
+    <span class="pandora">Pandora</span>
+    <span class="livros">Livros</span>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div *ngFor="let e of (authorizationState | async)?.errors">
+        <div *ngIf="e.errorEffect == 'SIGN_IN'" class="alert-warning">
+          <div *ngIf="e.error.status === 400">Credenciais inválidas</div>
+          <div *ngIf="e.error.status === 401">Erro 401</div>
+          <div *ngIf="e.error.status === 500 || e.error.status === 0">
+            Erro Interno no Servidor! Entre em contato com nossa equipe de
+            suporte.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="authorizationState | async as authState">
+    <ngb-toast
+      *ngIf="authState && authState.errors && authState.errors.length > 0"
+      [autohide]="true"
+      [delay]="5000"
+      [class]="'bg-danger text-light'"
+      [animation]="true"
+    >
+      {{
+        authState.errors[0].errorEffect ||
+          "Erro ao processar sua solicitação."
+      }}
+    </ngb-toast>
+  </div>
+
+  <div class="form row">
+    <div class="col-md-12">
+      <div *ngIf="(authorizationState | async)?.loading" class="loader"></div>
+      <form [formGroup]="signUpForm" (ngSubmit)="onRegistered()">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="text"
+            id="email"
+            class="form-control"
+            name="email"
+            formControlName="email"
+            [maxlength]="240"
+          />
+          <span
+            *ngIf="
+              signUpForm.get('email').invalid && signUpForm.get('email').touched
+            "
+            class="alert-danger"
+          >
+            Por favor digite um email válido!
+          </span>
+        </div>
+
+        <div formGroupName="passwordGroup">
+          <div class="form-group">
+            <label for="newPassword">Senha</label>
+            <input
+              type="password"
+              id="newPassword"
+              class="form-control"
+              name="newPassword"
+              formControlName="newPassword"
+              [maxlength]="240"
+            />
+            <span
+              *ngIf="
+                signUpForm.get('passwordGroup.newPassword').invalid &&
+                signUpForm.get('passwordGroup.newPassword').touched
+              "
+            >
+              <span
+                *ngIf="
+                  signUpForm.get('passwordGroup.newPassword').errors['required']
+                "
+                class="alert-danger"
+                >Este campo é obrigatório!</span
+              >
+              <span
+                *ngIf="
+                  signUpForm.get('passwordGroup.newPassword').errors[
+                    'minlength'
+                  ]
+                "
+                class="alert-danger"
+                >A senha deve ter pelo menos 6 dígitos!</span
+              >
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="newPasswordConfirm">Repita a senha</label>
+            <input
+              type="password"
+              id="newPasswordConfirm"
+              class="form-control"
+              name="newPasswordConfirm"
+              formControlName="newPasswordConfirm"
+              [maxlength]="240"
+            />
+            <span
+              *ngIf="
+                signUpForm.get('passwordGroup.newPasswordConfirm').invalid &&
+                signUpForm.get('passwordGroup.newPasswordConfirm').touched
+              "
+            >
+              <span
+                *ngIf="
+                  signUpForm.get('passwordGroup.newPasswordConfirm').errors[
+                    'required'
+                  ]
+                "
+                class="alert-danger"
+                >Este campo é obrigatório!</span
+              >
+            </span>
+            <span
+              *ngIf="
+                signUpForm.get('passwordGroup').invalid &&
+                signUpForm.get('passwordGroup').touched
+              "
+            >
+              <span
+                *ngIf="
+                  signUpForm.get('passwordGroup').errors != null &&
+                  signUpForm.get('passwordGroup').errors['noMatch']
+                "
+                class="alert-danger"
+                >Suas senhas devem corresponder!</span
+              >
+            </span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <button
+              class="btn btn-info"
+              type="submit"
+              [disabled]="
+                signUpForm.invalid ||
+                signUpForm.pending ||
+                (authorizationState | async)?.loading
+              "
+            >
+              Cadastrar-se
+            </button>
+          </div>
+        </div>
+      </form>
+      <div class="line-with-text">
+        <hr />
+        <span>OU</span>
+        <hr />
+      </div>
+
+      <button (click)="onGoogleSignUp()" class="google-button">
+        <span class="google-icon"></span>
+        Cadastrar-se com Google
+      </button>
+      
+      <div class="signin row">
+        <div class="col-md-12">
+          <a routerLink="/login">
+            <p>Já tem uma conta? <span>Faça Login!</span></p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

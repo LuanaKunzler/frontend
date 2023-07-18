@@ -1,0 +1,170 @@
+.signin {
+  position: relative;
+  top: 50px;
+  margin: auto;
+  width: 25%;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .title {
+    display: flex;
+    align-items: center;
+    align-self: center;
+    font-size: 24px;
+    margin: 20px;
+
+    .subtitle {
+      font-size: 0.6em;
+      text-align: center;
+    }
+
+    .pandora {
+      font-size: 4em;
+      line-height: 1em;
+    }
+
+    .livros {
+      display: inline-block;
+      font-size: 1em;
+      transform: rotate(-90deg);
+      transform-origin: top left;
+      line-height: 0.8em;
+    }
+  }
+
+  .form {
+    .loader {
+      top: 20%;
+    }
+    label {
+      font-size: 14px;
+      color: gray;
+      font-weight: bold;
+      margin-bottom: 5px;
+      margin-top: 20px;
+    }
+
+    input,
+    button {
+      border-radius: 10px;
+    }
+
+    button {
+      margin-top: 10px;
+      width: 100%;
+      background-color: #f4ea39;
+      border-color: #f4ea39;
+      color: #333;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #f4ea39;
+      box-shadow: 0 0 5px #f4ea39;
+    }
+
+    .alert-danger {
+      position: relative;
+      color: #721c24;
+      background-color: #f8d7da;
+      border-color: #f5c6cb;
+    }
+
+    .forgot {
+      a {
+        text-decoration: none;
+        p {
+          font-size: 14px;
+          color: gray;
+          text-align: end;
+          margin-top: 20px;
+        }
+      }
+
+      a:hover {
+        text-decoration: underline gray;
+      }
+    }
+
+    .signup {
+      margin-top: 20px;
+      text-align: center;
+      a {
+        text-decoration: none;
+        p {
+          font-size: 14px;
+          color: gray;
+          span {
+            font-size: 14px;
+            color: #333;
+            font-weight: bold;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+
+    .google-button {
+      background-color: #fff;
+      border: none;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px 0 rgba(0,0,0,.25);
+      color: #666;
+      font-family: 'Roboto', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      height: 36px;
+      line-height: 36px;
+      padding: 0 16px;
+      position: relative;
+      transition: box-shadow 0.2s ease;
+    }
+    
+    .google-icon {
+      background-image: url('https://developers.google.com/identity/images/g-logo.png');
+      background-size: cover;
+      display: inline-block;
+      height: 18px;
+      margin-right: 16px;
+      position: relative;
+      top: 4px;
+      width: 18px;
+    }
+  }
+
+  .line-with-text {
+    display: flex;
+    margin-top: 10px;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .line-with-text hr {
+    flex: 1;
+    border: none;
+    height: 1px;
+    background-color: grey;
+  }
+  
+  .line-with-text span {
+    margin: 0 10px;
+    color: #333;
+    
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .signin {
+    position: relative;
+    top: 100px;
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 1440px) and (min-width: 768px) {
+  .signin {
+    width: 40%;
+  }
+}

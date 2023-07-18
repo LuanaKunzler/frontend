@@ -1,0 +1,45 @@
+<div class="modal-content">
+    <div class="category-title">Nova Categoria</div>
+    <div class="category-content" *ngIf="!innerLoading">
+      <form [formGroup]="categoryForm" id="categoryForm" (ngSubmit)="onCreate()">
+        <div class="info row">
+          <div class="mb-3">
+            <div class="form-group">
+              <label for="name">Nome</label>
+              <input
+                type="text"
+                id="name"
+                class="form-control"
+                name="name"
+                formControlName="name"
+                [maxlength]="52"
+              />
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="new-category-buttons">
+        <button
+          class="save-btn"
+          type="submit"
+          form="categoryForm"
+          mat-button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="categoryForm.invalid || categoryForm.pending"
+        >
+          Salvar
+        </button>
+        <button
+          class="cancel-btn"
+          mat-button
+          mat-raised-button
+          (click)="onCancel()"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+  

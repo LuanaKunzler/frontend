@@ -1,0 +1,25 @@
+<div class="most-selling container" *ngIf="!(showcaseState | async)?.loading?.includes('SHOWCASE_ERROR')">
+    <div class="col-md-12">
+      <h3 class="title">Mais Vendidos</h3>
+    </div>
+    <div *ngIf="(showcaseState | async)?.loading?.includes('FETCH_NEWLY_ADDED')" class="loader"></div>
+    <div *ngIf="!(showcaseState | async)?.loading?.includes('FETCH_NEWLY_ADDED')" class="scroll-left"
+      (click)="scrollLeft()"></div>
+    <div *ngIf="!(showcaseState | async)?.loading?.includes('FETCH_NEWLY_ADDED')" class="most-cards" #mostCards>
+      <div class="most-card col-lg-3 col-md-6 col-12" *ngFor="let m of (showcaseState | async)?.mostSelling">
+        <a routerLink="/book/{{m.bookUrl}}">
+          <img src="{{m.imageUrl}}" alt="{{m.title}}">
+          <hr>
+          <p class="book-title">{{m.title}}</p>
+          <div class="row">
+            <div class="col-md-6">
+              <p>{{m.unitPrice  | currency: 'BRL'}}</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div *ngIf="!(showcaseState | async)?.loading?.includes('FETCH_NEWLY_ADDED')" class="scroll-right"
+      (click)="scrollRight()"></div>
+  </div>
+  

@@ -1,0 +1,95 @@
+<div class="mat-elevation-z8 discount-content">
+  <div class="read-discounts-title">Descontos</div>
+  <div class="buttons-discount">
+    <button
+      class="btn-discounts"
+      color="primary"
+      mat-raised-button
+      (click)="openCreateModal()"
+    >
+      <mat-icon>add</mat-icon> Novo
+    </button>
+
+    <button
+      color="secondary"
+      mat-raised-button
+      class="export-button"
+      (click)="onDownloadExcel()"
+    >
+      <mat-icon>file_download</mat-icon> Exportar
+    </button>
+  </div>
+  <div class="table-container mat-table-responsive">
+    <table
+      mat-table
+      class="full-width-table"
+      matSort
+      aria-label="Elements"
+      [dataSource]="dataSource.data"
+      id="discountTable"
+    >
+      <!-- Id Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+        <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+      </ng-container>
+
+      <!-- Code Column -->
+      <ng-container matColumnDef="code">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Código</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.code }}
+        </td>
+      </ng-container>
+
+      <!-- Percent Column -->
+      <ng-container matColumnDef="discountPercent">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Porcentagem</th>
+        <td mat-cell *matCellDef="let row">{{ row.discountPercent }}%</td>
+      </ng-container>
+
+      <!-- status Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.status === 1 ? "Ativo" : "Inativo" }}
+        </td>
+      </ng-container>
+
+      <!-- actions Column -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ações</th>
+        <td mat-cell *matCellDef="let row">
+          <button
+            mat-icon-button
+            (click)="openUpdateModal(row.id)"
+            class="edit"
+          >
+            <mat-icon class="edit-icon">edit</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="openDeleteModal(row.id)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <mat-paginator
+      class="paginator-mat"
+      #paginator
+      [length]="totalElements"
+      [pageIndex]="paginator?.pageIndex"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageOptions"
+      (page)="onPageChange($event)"
+      aria-label="Select page"
+    >
+    </mat-paginator>
+  </div>
+</div>

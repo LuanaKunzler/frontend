@@ -1,0 +1,161 @@
+<div class="book container">
+  <div *ngIf="fetchError != null">
+    <div class="alert-warning">
+      Estamos com problemas para carregar os livros...
+    </div>
+  </div>
+  <div *ngIf="innerLoading" class="loader"></div>
+  <div *ngIf="innerLoading" style="min-height: 50vh"></div>
+  <div *ngIf="book != null && innerLoading == false" class="row pt-5">
+    <div class="col-md-7">
+      <img
+        class="book-img img-responsive"
+        src="{{ book.imageUrl }}"
+        alt="{{ book.title }}"
+      />
+    </div>
+    <div class="col-md-4 mr-auto">
+      <div class="book-description">
+        <span class="category">{{ book.bookCategory.name }}</span>
+        <h1 class="title">{{ book.title }}</h1>
+
+        <div class="row">
+          <div class="amount col-md-6">
+            <div class="row"><span>Quantidade</span></div>
+            <div class="row">
+              <input #amount type="number" placeholder="-" min="1" value="1" />
+            </div>
+          </div>
+
+          <div class="price col-md-6">
+            <span>{{book.unitPrice | currency: 'BRL'}}</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12" *ngIf="cartState | async as state">
+            <div *ngFor="let e of state.errors">
+              <div *ngIf="e.errorEffect == 'ADD_TO_CART'" class="alert-warning">
+                <div class="col-md-12">
+                  <div *ngIf="e.error.status === 400 || e.error.status === 401">
+                    Não foi possível adicionar o item.
+                  </div>
+                  <div *ngIf="e.error.status === 409">
+                    Selecione uma quantidade adequada
+                  </div>
+                  <div *ngIf="e.error.status === 500 || e.error.status === 0">
+                    Erro Interno de Servidor. Entre em contato com nossa equipe de suporte.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="add col-md-12">
+            <div
+              *ngIf="(cartState | async)?.loading"
+              class="loader"
+              style="top: 0; left: 25%"
+            ></div>
+            <button
+              *ngIf="book.unitsInStock > 0"
+              (click)="addToCart(amount)"
+              [disabled]="(cartState | async)?.loading"
+              [style.display]="
+                (cartState | async)?.loading ? 'none' : 'inline-block'
+              "
+              class="btn btn-info"
+            >
+              Adicionar ao carrinho
+            </button>
+            <button
+              *ngIf="book.unitsInStock === 0"
+              [disabled]="(cartState | async)?.loading"
+              [style.display]="
+                (cartState | async)?.loading ? 'none' : 'inline-block'
+              "
+              class="btn out-stock"
+            >
+              Indisponível!
+            </button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div
+            class="book-title col-md-4 {{
+              activeTab === 1 ? 'active' : ''
+            }}"
+            (click)="setActiveTab(1)"
+          >
+            <p>Detalhes</p>
+          </div>
+          <div
+            class="delivery-title col-md-4 {{
+              activeTab === 2 ? 'active' : ''
+            }}"
+            (click)="setActiveTab(2)"
+          >
+            <p>Frete</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="book-info col-md-12" *ngIf="activeTab === 1">
+            <div>
+              <p>Título:</p>
+              <span>{{ book.title }}</span>
+            </div>
+            <div>
+              <p>Descrição:</p>
+              <span>{{ book.longDesc }}</span>
+            </div>
+            <div>
+              <p>Categoria:</p>
+              <span>{{ book.bookCategory.name }}</span>
+            </div>
+            <div>
+              <p>Autor:</p>
+              <span>{{ book.author.name }}</span>
+            </div>
+            <div>
+              <p>ISBN:</p>
+              <span>{{ book.isbn }}</span>
+            </div>
+            <div>
+              <p>Edição:</p>
+              <span>{{ book.bookEdition }}</span>
+            </div>
+            <div>
+              <p>Número de páginas:</p>
+              <span>{{ book.numberOfPages }}</span>
+            </div>
+            <div>
+              <p>Idioma:</p>
+              <span>{{ book.language }}</span>
+            </div>
+          </div>
+          <div class="delivery-info col-md-12" *ngIf="activeTab === 2">
+            <div>
+              <p>Frete:</p>
+              <span>{{ book.cargoPrice  | currency: 'BRL' }}</span>
+            </div>
+            <div>
+              <span>Os pedidos saem em 1 dia útil ou menos.</span>
+            </div>
+            <div>
+              <span>Enviamos para todo Brasil</span>
+            </div>
+            <div>
+              <p>
+                Este é um site de demonstração. Os produtos listados aqui são
+                apenas para fins de demonstração.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-related></app-related>
+</div>

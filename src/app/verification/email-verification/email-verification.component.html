@@ -1,0 +1,35 @@
+<div class="email-verification container">
+  <div class="row">
+    <div class="col-md-12 col-12 text-center">
+      <span
+        class="fa {{
+          isError
+            ? 'fa-exclamation-triangle'
+            : 'fa-sharp fa-regular fa-circle-check'
+        }}"
+        style="color: #f4ea39"
+      ></span>
+    </div>
+  </div>
+  <div class="controls col-md-12 col-12">
+    <div *ngIf="isVerified && !isError" class="row d-flex flex-column align-items-center">
+      
+        <div class="login" *ngIf="!isLoggedIn">
+          Sua conta foi verificada com sucesso!<br>Por favor faça<a routerLink="/login">login.</a>
+        </div>
+        <a class="btn btn-info home" routerLink="/">Início</a>
+        <a class="btn btn-secondary books" routerLink="/account/browse">Livros</a>
+      </div>
+    </div>
+
+  <div *ngIf="!isVerified && !isError" class="row">
+    <p>Enviando solicitação...</p>
+  </div>
+
+  <div *ngIf="isError" class="row">
+    <p>
+      Não é possível ativar sua conta no momento. Entre em contato com nossa
+      equipe de suporte.
+    </p>
+  </div>
+</div>

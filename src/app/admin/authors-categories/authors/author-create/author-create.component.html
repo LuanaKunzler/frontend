@@ -1,0 +1,45 @@
+<div class="modal-content">
+    <div class="author-title">Novo Autor</div>
+    <div class="author-content" *ngIf="!innerLoading">
+      <form [formGroup]="authorForm" id="authorForm" (ngSubmit)="onCreate()">
+        <div class="info row">
+          <div class="mb-3">
+            <div class="form-group">
+              <label for="name">Nome</label>
+              <input
+                type="text"
+                id="name"
+                class="form-control"
+                name="name"
+                formControlName="name"
+                [maxlength]="52"
+              />
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="new-author-buttons">
+        <button
+          class="save-btn"
+          type="submit"
+          form="authorForm"
+          mat-button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="authorForm.invalid || authorForm.pending"
+        >
+          Salvar
+        </button>
+        <button
+          class="cancel-btn"
+          mat-button
+          mat-raised-button
+          (click)="onCancel()"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+  

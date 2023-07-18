@@ -1,0 +1,48 @@
+.report-content {
+  border-radius: 10px;
+}
+
+.reports-title {
+  padding-top: 20px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-reports {
+  border-radius: 10px;
+  margin: 30px;
+}
+
+.buttons-report {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+  
+  .report-name {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: 30px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+  }
+  
+  .report-name i {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  
+  mat-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }

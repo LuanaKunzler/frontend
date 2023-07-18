@@ -1,0 +1,20 @@
+<div class="newly-added container" *ngIf="!(showcaseState | async)?.loading?.includes('SHOWCASE_ERROR')">
+    <div class="col-md-12">
+      <h3 class="title">Adicionados Recentemente</h3>
+    </div>
+    <div *ngIf="(showcaseState | async)?.loading?.includes('FETCH_NEWLY_ADDED')" class="loader"></div>
+    <div *ngIf="!(showcaseState | async)?.loading?.includes('FETCH_NEWLY_ADDED')" class="row new-cards">
+      <div class="new-card col-lg-3 col-md-6 col-12" *ngFor="let n of (showcaseState | async)?.newlyAdded">
+        <a routerLink="/book/{{n.bookUrl}}">
+          <img src="{{n.imageUrl}}" alt="{{n.title}}">
+          <hr>
+          <p class="book-title">{{n.title}}</p>
+          <div class="row">
+            <div class="col-md-6">
+              <p>{{n.unitPrice  | currency: 'BRL'}}</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>

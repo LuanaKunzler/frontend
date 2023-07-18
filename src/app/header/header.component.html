@@ -1,0 +1,270 @@
+<div class="header fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <a class="logo navbar-brand" routerLink="/">Pandora</a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      (click)="isCollapsed = !isCollapsed"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="pages navbar-nav">
+      <div class="home">
+        <div
+          class="collapse navbar-collapse"
+          id="navbarSupportedContent"
+          [ngbCollapse]="isCollapsed"
+        >
+          <a
+            class="nav-link"
+            routerLinkActive="active"
+            routerLink="/"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Início</a
+          >
+        </div>
+      </div>
+
+      <div class="books">
+        <div
+          class="collapse navbar-collapse"
+          id="navbarSupportedContent"
+          [ngbCollapse]="isCollapsed"
+        >
+          <a
+            class="nav-link"
+            routerLinkActive="active"
+            routerLink="/browse"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Livros</a
+          >
+        </div>
+      </div>
+
+      <div class="about">
+        <div
+          class="collapse navbar-collapse"
+          id="navbarSupportedContent"
+          [ngbCollapse]="isCollapsed"
+        >
+          <a
+            class="nav-link"
+            routerLinkActive="active"
+            routerLink="/faq"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Sobre</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="search navbar-nav">
+      <div
+        class="collapse navbar-collapse"
+        id="navbarSupportedContent"
+        [ngbCollapse]="isCollapsed"
+      >
+        <div class="form-inline search">
+          <input
+            #search
+            class="form-control"
+            type="search"
+            placeholder="Pesquisar"
+            (keyup.enter)="searchBook(search)"
+            aria-label="Search"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="end navbar-nav">
+      <button
+        class="login btn btn-secondary"
+        *ngIf="!(authorizationState | async)?.authenticated"
+        routerLink="/login"
+      >
+        <p>Entrar</p>
+      </button>
+
+      <button
+        class="register btn btn-primary"
+        *ngIf="!(authorizationState | async)?.authenticated"
+        routerLink="/signup"
+      >
+        <p>Cadastrar</p>
+      </button>
+
+      <button
+        class="admin-mode btn btn-info"
+        *ngIf="
+          (authorizationState | async)?.authenticated &&
+          (authorizationState | async)?.userRole?.includes('ROLE_ADMIN')
+        "
+        (click)="switchToAdminMode()"
+      >
+        Perfil Admin
+      </button>
+
+      <div class="user" *ngIf="(authorizationState | async)?.authenticated">
+        <div ngbDropdown display="dynamic" placement="bottom" autoClose="true">
+          <a class="nav-link" id="dropdownAccount" ngbDropdownToggle>
+            <i class="fa fa-user"></i>
+          </a>
+          <div
+            class="user-dropdown"
+            ngbDropdownMenu
+            aria-labelledby="dropdownAccount"
+          >
+            <div>
+              <a routerLink="/account/information" routerLinkActive="active">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <p>Perfil</p>
+              </a>
+            </div>
+            <div>
+              <a routerLink="/account/orders" routerLinkActive="active">
+                <i class="fa fa-archive" aria-hidden="true"></i>
+                <p>Pedidos</p>
+              </a>
+            </div>
+            <div>
+              <a routerLink="/account/address" routerLinkActive="active"
+                ><i class="fa fa-home" aria-hidden="true"></i>
+                <p>Endereço</p>
+              </a>
+            </div>
+            <div>
+              <a routerLink="/account/help" routerLinkActive="active">
+                <i class="fa fa-question-circle" aria-hidden="true"></i>
+                <p>Ajuda</p>
+              </a>
+            </div>
+            <div>
+              <a (click)="userSignOut()">
+                <i class="fa fa fa-sign-out" aria-hidden="true"></i>
+                <p>Sair</p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="cart navbar-nav"
+        *ngIf="(authorizationState | async)?.authenticated"
+      >
+        <div *ngFor="let e of (cartState | async)?.errors">
+          <div *ngIf="e.errorEffect == 'FETCH_CART'">
+            <div class="alert-danger">Error</div>
+          </div>
+        </div>
+
+        <div *ngIf="(cartState | async)?.fetchLoading" class="loader"></div>
+        <div
+          *ngIf="!(cartState | async)?.fetchLoading"
+          ngbDropdown
+          display="dynamic"
+          placement="bottom"
+          autoClose="true"
+        >
+          <div id="dropdownCart nav-link" ngbDropdownToggle>
+            <i class="fa fa-shopping-cart"></i>
+            <div class="item-count">
+              {{ cartItemCount }}
+            </div>
+          </div>
+
+          <div
+            ngbDropdownMenu
+            aria-labelledby="dropdownCart"
+            class="cart-inside"
+          >
+            <div
+              *ngIf="
+                (cartState | async)?.cart &&
+                (cartState | async)?.cart?.cartItems?.length
+              "
+              class="list-group"
+            >
+              <div class="book">
+                <a
+                  *ngFor="let cartItem of (cartState | async)?.cart?.cartItems"
+                  class="row"
+                  routerLink="/detail/{{ cartItem.url }}"
+                >
+                  <div class="col-md-8 details">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p class="book-title">{{ cartItem.title }}</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="row col-md-6">
+                        <p class="amount">
+                          Quantidade: <span>{{ cartItem.amount }}</span>
+                        </p>
+                      </div>
+                      <div class="col-md-6">
+                        <p class="price">{{ cartItem.price  | currency: 'BRL' }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div class="controls">
+                <div class="row">
+                  <div class="col-md-6">
+                    <button class="btn btn-secondary" routerLink="/cart">
+                      <p>Carrinho</p>
+                    </button>
+                  </div>
+
+                  <div class="col-md-6">
+                    <button (click)="activatePurchase()" class="btn btn-info">
+                      <p>Checkout</p>
+                    </button>
+                  </div>
+                  <ngb-toast [class]="'bg-danger text-light'" *ngIf="errorAlertVisible" [autohide]="true" [delay]="5000" (hidden)="errorAlertVisible = false">
+                    Você deve ativar sua conta para comprar!<br>Verifique seu e-mail.
+                    <button type="button" class="btn-close" aria-label="Fechar" (click)="errorAlertVisible = false"></button>
+                  </ngb-toast>
+                </div>
+              </div>
+            </div>
+
+            <div
+              *ngIf="
+                !(cartState | async)?.cart ||
+                !(cartState | async)?.cart?.cartItems?.length
+              "
+              class="empty-cart"
+            >
+              <p>Seu carrinho está vazio.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div
+    *ngIf="
+      (authorizationState | async)?.authenticated &&
+      (authorizationState | async)?.isActive == false
+    "
+    class="user-warning alert-warning"
+  >
+    <hr class="p-0 m-0" />
+    Bem-vindo à Pandora Livros! Sua conta está inativa. Verifique seu e-mail e
+    ative!
+    <hr class="p-0 m-0" />
+  </div>
+</div>

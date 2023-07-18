@@ -1,0 +1,46 @@
+.admin-expansion-panel-header a {
+  color: #333;
+  text-decoration: none;
+}
+.mat-expansion-panel-header {
+  padding: 0 16px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.mat-expansion-panel,
+.mat-expansion-panel * {
+  font-family: 'Roboto', sans-serif !important;
+}
+
+.sidenav-container {
+  height: 100vh;
+}
+
+mat-sidenav {
+  margin-top: 64px;
+  width: 250px;
+}
+
+.content-container {
+  padding-top: 64px; /* Ajuste o valor conforme a altura do seu cabeçalho fixo */
+}
+
+mat-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+a.mat-list-item {
+  color: #333;
+  text-decoration: none;
+}
+
+a.mat-list-item:hover {
+  color: #000;
+  font-weight: bold;
+}

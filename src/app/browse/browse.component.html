@@ -1,0 +1,167 @@
+<div class="browse container">
+  <div class="row">
+    <div class="filters col-md-3">
+      <div class="categories">
+        <p>Categorias</p>
+        <p
+          *ngIf="selectedCategory !== 'any'"
+          class="remove"
+          (click)="clearCategory()"
+        >
+          remover
+        </p>
+        <div
+          class="category {{ selectedCategory === c.name ? 'active' : '' }}"
+          *ngFor="let c of (browseState | async)?.categories"
+          (click)="selectCategory(c.name)"
+        >
+          {{ c.name }}
+        </div>
+        <div *ngFor="let e of (browseState | async)?.errors">
+          <div *ngIf="e.errorEffect == 'FETCH_CATEGORY'" class="alert-warning">
+            <div *ngIf="e.error.status === 400 || e.error.status === 401">
+              Erro ao carregar categorias...
+            </div>
+            <div *ngIf="e.error.status === 500 || e.error.status === 0">
+              Erro Interno de Servidor. Entre em contato com nossa equipe de
+              suporte.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="price">
+        <p>Preço</p>
+        <p
+          *ngIf="minPrice !== '0' || maxPrice !== '0'"
+          class="remove"
+          (click)="clearPrice()"
+        >
+          remover
+        </p>
+        <div class="row">
+          <div class="min col-md-4">
+            <p>Min</p>
+            <input
+              type="number"
+              (input)="selectMin($event)"
+              [value]="minPrice !== '0' ? minPrice : ''"
+            />
+          </div>
+          <div class="max col-md-4">
+            <p>Max</p>
+            <input
+              type="number"
+              (input)="selectMax($event)"
+              [value]="maxPrice !== '0' ? maxPrice : ''"
+            />
+          </div>
+          <div class="col-md-2"></div>
+        </div>
+      </div>
+      <div class="authors">
+        <p>Autores</p>
+        <p
+          *ngIf="selectedAuthor !== 'any'"
+          class="remove"
+          (click)="clearAuthor()"
+        >
+          remover
+        </p>
+        <div
+          class="author {{ selectedAuthor === c.name ? 'active' : '' }}"
+          *ngFor="let c of (browseState | async)?.authors"
+          (click)="selectAuthor(c.name)"
+        >
+          {{ c.name }}
+        </div>
+        <div *ngFor="let e of (browseState | async)?.errors">
+          <div *ngIf="e.errorEffect == 'FETCH_AUTHOR'" class="alert-warning">
+            <div *ngIf="e.error.status === 400 || e.error.status === 401">
+              Erro ao carregar autores...
+            </div>
+            <div *ngIf="e.error.status === 500 || e.error.status === 0">
+              Erro Interno de Servidor. Entre em contato com nossa equipe de
+              suporte.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="browse-content col-md-9">
+      <div *ngIf="(browseState | async)?.loading" class="loader"></div>
+      <div class="row">
+        <div class="col-md-6">
+          <p class="book-count">
+            {{ (browseState | async)?.booksCount }} Livros Encontrados
+          </p>
+        </div>
+        <div class="col-md-6">
+          <div class="sort">
+            <select name="sortBy" id="sortBy" (change)="selectSort($event)">
+              <option *ngFor="let s of sortBy" [value]="s.value">
+                {{ s.display }}
+              </option>
+            </select>
+          </div>
+          <div *ngFor="let e of (browseState | async)?.errors">
+            <div
+              *ngIf="
+                e.errorEffect == 'FETCH_BOOKS' ||
+                e.errorEffect == 'FETCH_BOOKS_APPEND'
+              "
+              class="alert-warning col-md-12"
+            >
+              <div *ngIf="e.error.status === 400 || e.error.status === 401">
+                Erro ao carregar livros...
+              </div>
+              <div *ngIf="e.error.status === 500 || e.error.status === 0">
+                Erro Interno de Servidor. Entre em contato com nossa equipe de
+                suporte.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div class="book row">
+        <div
+          class="book-card col-lg-3 col-md-6 col-12"
+          *ngFor="let book of (browseState | async)?.books"
+        >
+          <a routerLink="/book/{{ book.bookUrl }}">
+            <img
+              src="{{ book.imageUrl }}"
+              alt="book image"
+              [ngClass]="{ gray: (browseState | async)?.loading }"
+            />
+            <hr />
+            <p class="book-title">{{ book.title }}</p>
+            <div class="row">
+              <div class="col-md-6">
+                <p>{{ book.unitPrice  | currency: 'BRL' }}</p>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div
+          class="book-not-found"
+          *ngIf="
+            (browseState | async)?.booksCount === 0 &&
+            !(browseState | async)?.loading
+          "
+        >
+          <h1>:(</h1>
+          <h3>Desculpe, livro não encontrado</h3>
+          <p>Pesquise novamente!</p>
+        </div>
+      </div>
+
+      <div *ngIf="!canFetch" class="row">
+        <div class="col-md-12 col-12">
+          <hr />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

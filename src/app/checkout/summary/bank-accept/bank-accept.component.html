@@ -1,0 +1,12 @@
+<div class="modal-header">
+    <h4 class="modal-title">Confirmar o pagamento</h4>
+  </div>
+  <div class="modal-body">
+    <p>Conectando ao banco de demonstração...</p>
+    <p>Preço Total : {{postCart?.totalPrice.toFixed(2) | currency:'BRL'}}</p>
+  </div>
+  <div class="modal-footer">
+    <p>Esta é uma demonstração.</p>
+    <button type="button" class="btn btn-info" (click)="paymentConfirm()">Confirmar</button>
+  </div>
+  

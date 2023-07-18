@@ -1,0 +1,89 @@
+<div class="address container">
+    <div class="title">
+      <p>Endereço</p>
+    </div>
+    <hr>
+    <div *ngIf="innerLoading" class="loader"></div>
+    <ngb-toast [class]="'bg-danger text-light'" *ngIf="errorAlertVisible" [autohide]="true" [delay]="5000" (hidden)="errorAlertVisible = false">
+      Um erro ocorreu. Atualize sua página.
+      <button type="button" class="btn-close" aria-label="Fechar" (click)="errorAlertVisible = false"></button>
+    </ngb-toast>
+    
+    <ngb-toast [class]="'bg-success text-light'" *ngIf="successAlertVisible" [autohide]="true" [delay]="3000" (hidden)="successAlertVisible = false">      
+      Seu endereço foi atualizado com sucesso!
+    </ngb-toast> 
+    
+    <div *ngIf="!innerLoading">
+      <form [formGroup]="addressForm" (ngSubmit)="onSubmitAddressForm()">
+        <div class="info">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="country">País</label>
+                <input type="text" id="country" class="form-control" name="country" formControlName="country"
+                  [maxlength]="240">
+                <span *ngIf="addressForm.get('country').invalid && addressForm.get('country').touched">
+                  <span *ngIf="addressForm.get('country').errors['required']" class="alert-danger">Este campo é obrigatório!</span>
+                </span>
+              </div>
+            </div>
+  
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="city">Cidade</label>
+                <input type="text" id="city" class="form-control" name="city" formControlName="city" [maxlength]="240">
+                <span *ngIf="addressForm.get('city').invalid && addressForm.get('city').touched">
+                  <span *ngIf="addressForm.get('city').errors['required']" class="alert-danger">Este campo é obrigatório!</span>
+                </span>
+              </div>
+            </div>
+          </div>
+  
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="state">Estado</label>
+                <input type="text" id="state" class="form-control" name="state" formControlName="state" [maxlength]="240">
+                <span *ngIf="addressForm.get('state').invalid && addressForm.get('state').touched">
+                  <span class="alert-danger">Insira um estado válido!</span>
+                </span>
+              </div>
+            </div>
+  
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="zip">Zip</label>
+                <input type="text" id="zip" class="form-control" name="zip" formControlName="zip" [maxlength]="9"
+                  [minlength]="5" mask="00000-000">
+                <span *ngIf="addressForm.get('zip').invalid && addressForm.get('zip').touched" class="alert-danger">
+                    Insira um número de CEP válido!
+                </span>
+              </div>
+            </div>
+          </div>
+  
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="address">Endereço</label>
+                <textarea type="text" id="address" class="form-control" name="address" formControlName="address" rows="3">
+                </textarea>
+              </div>
+            </div>
+          </div>
+  
+        </div>
+  
+  
+        <div class="row controls">
+          <div class="col-md-12">
+            <button class="btn btn-primary" type="submit" [disabled]="addressForm.invalid || addressForm.pending">
+              <p>Atualizar</p>
+            </button>
+          </div>
+  
+        </div>
+      </form>
+    </div>
+  </div>
+  

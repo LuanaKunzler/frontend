@@ -1,0 +1,296 @@
+<div class="mat-elevation-z8 new-product-content">
+  <div class="new-product-title">Novo Produto</div>
+  <div *ngIf="innerLoading" class="loader-admin"></div>
+  <div *ngIf="!innerLoading">
+    <form [formGroup]="productForm" id="productForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="info row">
+            <div class="col-12">
+              <div
+                [ngClass]="{
+                  'image-render': !previewImageUrl,
+                  'no-image': !previewImageUrl
+                }"
+              >
+                <div *ngIf="previewImageUrl; else noImage">
+                  <img
+                    [src]="previewImageUrl"
+                    alt="Imagem prévia"
+                    class="preview-image"
+                  />
+                </div>
+                <ng-template #noImage>
+                  <p>Selecione uma imagem</p>
+                </ng-template>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <div class="d-flex mb-3">
+                  <div class="d-flex">
+                    <input
+                      type="file"
+                      #fileInput
+                      (change)="onFileChange($event)"
+                      accept="image/*"
+                      required
+                      id="image"
+                      class="form-control custom-file-input"
+                      name="image"
+                    />
+                    <button class="clear-field" (click)="clearFileInput()">
+                      <p>Limpar</p>
+                    </button>
+                  </div>
+                </div>
+                <span *ngIf="dimensionsErrorMessage" class="alert-danger">
+                  As dimensões da imagem excedem o limite máximo.
+                </span>
+                <span *ngIf="sizeErrorMessage" class="alert-danger">
+                  Tamanho da imagem excede o limite máximo.
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="info row">
+            <div class="col-12 mb-3">
+              <div class="form-group">
+                <label for="title">Título</label>
+                <input
+                  type="text"
+                  id="title"
+                  class="form-control"
+                  name="title"
+                  formControlName="title"
+                  [maxlength]="52"
+                />
+              </div>
+              <span
+                *ngIf="
+                  productForm.get('title').invalid &&
+                  productForm.get('title').touched
+                "
+                class="alert-danger"
+              >
+                Este campo é obrigatório!
+              </span>
+            </div>
+            <div class="col-12 mb-3">
+              <div class="form-group">
+                <label for="description">Descrição</label>
+                <textarea
+                  type="text"
+                  id="description"
+                  class="form-control"
+                  name="description"
+                  formControlName="description"
+                  rows="3"
+                ></textarea>
+              </div>
+              <span
+                *ngIf="
+                  productForm.get('description').invalid &&
+                  productForm.get('description').touched
+                "
+                class="alert-danger"
+              >
+                Este campo é obrigatório!
+              </span>
+            </div>
+            <div class="col-6 mb-3">
+              <div class="form-group">
+                <label for="isbn">ISBN</label>
+                <input
+                  type="text"
+                  id="isbn"
+                  class="form-control"
+                  name="isbn"
+                  formControlName="isbn"
+                  [maxlength]="52"
+                />
+              </div>
+            </div>
+            <div class="col-6 mb-3">
+              <div class="form-group">
+                <label for="bookEdition">Edição</label>
+                <input
+                  type="text"
+                  id="bookEdition"
+                  class="form-control"
+                  name="bookEdition"
+                  formControlName="bookEdition"
+                  [maxlength]="52"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="info row">
+        <div class="col-6 mb-3">
+          <div class="form-group">
+            <label for="author">Autor</label>
+            <select id="author" class="form-control" formControlName="author">
+              <option *ngFor="let author of authors" [value]="author.id">
+                {{ author.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-6 mb-3">
+          <div class="form-group">
+            <label for="category">Categoria</label>
+            <select
+              id="category"
+              class="form-control"
+              formControlName="category"
+            >
+              <option *ngFor="let category of categories" [value]="category.id">
+                {{ category.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="info row">
+            <div class="col-6 mb-3">
+              <div class="form-group">
+                <label for="language">Idioma</label>
+                <input
+                  type="text"
+                  id="language"
+                  class="form-control"
+                  name="language"
+                  formControlName="language"
+                  [maxlength]="52"
+                />
+              </div>
+            </div>
+            <div class="col-6 mb-3">
+              <div class="form-group">
+                <label for="numberOfPages">Número de Páginas</label>
+                <input
+                  type="text"
+                  id="numberOfPages"
+                  class="form-control"
+                  name="numberOfPages"
+                  formControlName="numberOfPages"
+                  [maxlength]="52"
+                />
+              </div>
+            </div>
+            <div class="col-6 mb-3">
+              <div class="form-group">
+                <label for="unitsInStock">Unidade</label>
+                <input
+                  type="number"
+                  id="unitsInStock"
+                  class="form-control"
+                  name="unitsInStock"
+                  formControlName="unitsInStock"
+                />
+              </div>
+              <span
+                *ngIf="
+                  productForm.get('unitsInStock').invalid &&
+                  productForm.get('unitsInStock').touched
+                "
+                class="alert-danger"
+              >
+                Este campo é obrigatório!
+              </span>
+            </div>
+            <div class="col-6 mb-3">
+              <div class="form-group">
+                <label for="unitPrice">Preço</label>
+                <input
+                  type="number"
+                  id="unitPrice"
+                  class="form-control"
+                  name="unitPrice"
+                  formControlName="unitPrice"
+                />
+              </div>
+              <span
+                *ngIf="
+                  productForm.get('unitPrice').invalid &&
+                  productForm.get('unitPrice').touched
+                "
+                class="alert-danger"
+              >
+                Este campo é obrigatório!
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="info row d-flex justify-content-center">
+            <div class="col-12 mb-3">
+              <div class="form-group">
+                <label for="isActive">Status</label>
+                <div class="d-flex mt-2">
+                  <input
+                    type="radio"
+                    id="isActiveTrue"
+                    name="isActive"
+                    value="true"
+                    formControlName="isActive"
+                  />
+                  <label for="isActiveTrue">Ativo</label>
+                </div>
+                <div class="d-flex mt-1">
+                  <input
+                    type="radio"
+                    id="isActiveFalse"
+                    name="isActive"
+                    value="false"
+                    formControlName="isActive"
+                  />
+                  <label for="isActiveFalse">Inativo</label>
+                </div>
+                <span
+                  *ngIf="
+                    productForm.get('isActive').invalid &&
+                    productForm.get('isActive').touched
+                  "
+                  class="alert-danger"
+                >
+                  Este campo é obrigatório!
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </form>
+    <div class="new-products-buttons">
+      <button
+        class="save-btn"
+        type="submit"
+        form="productForm"
+        mat-button
+        mat-raised-button
+        color="primary"
+        [disabled]="productForm.invalid || productForm.pending"
+      >
+        Salvar
+      </button>
+      <button
+        class="cancel-btn"
+        mat-button
+        mat-raised-button
+        (click)="cancel()"
+      >
+        Cancelar
+      </button>
+    </div>
+  </div>
+</div>

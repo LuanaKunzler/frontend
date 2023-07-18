@@ -1,0 +1,50 @@
+<div class="modal-content">
+    <div class="author-title">Editar Autor</div>
+    <div class="update-author-content" *ngIf="!innerLoading">
+      <form
+        [formGroup]="updateAuthorForm"
+        id="updateAuthorForm"
+        (ngSubmit)="onUpdate()"
+      >
+        <div class="info row">
+          <div class="mb-3">
+            <div class="form-group">
+              <label for="name">Nome</label>
+              <input
+                type="text"
+                id="name"
+                class="form-control"
+                name="name"
+                formControlName="name"
+                [maxlength]="52"
+              />
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="update-author-buttons">
+        <button
+          class="save-btn"
+          type="submit"
+          form="updateAuthorForm"
+          mat-button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="updateAuthorForm.invalid || updateAuthorForm.pending"
+        >
+          Salvar
+        </button>
+        <button
+          class="cancel-btn"
+          mat-button
+          mat-raised-button
+          type="button"
+          (click)="onCancel()"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+  

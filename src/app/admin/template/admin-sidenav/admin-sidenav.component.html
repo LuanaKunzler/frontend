@@ -1,0 +1,35 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="side" [(opened)]="isSidenavOpen">
+    <mat-nav-list>
+      <mat-list-item routerLink="/admin/dashboard" [routerLinkActive]="'active'">
+        Dashboard
+      </mat-list-item>
+      <mat-list-item routerLink="/admin/users" [routerLinkActive]="'active'">
+        Usuários
+      </mat-list-item>
+      <mat-expansion-panel class="admin-sidenav-item" [class.mat-elevation-z0]="true">
+        <mat-expansion-panel-header class="admin-expansion-panel-header">
+            <mat-panel-title routerLink="/admin/products" [routerLinkActive]="'active'">Produtos</mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+            <mat-list-item routerLink="/admin/authors&categories" [routerLinkActive]="'active'">
+                Autores & Categorias
+            </mat-list-item>
+        </mat-nav-list>
+      </mat-expansion-panel>
+      <mat-list-item routerLink="/admin/orders" [routerLinkActive]="'active'">
+        Pedidos
+      </mat-list-item>
+      <mat-list-item routerLink="/admin/discounts" [routerLinkActive]="'active'">
+        Descontos
+      </mat-list-item>
+      <mat-list-item routerLink="/admin/reports" [routerLinkActive]="'active'">
+        Relatórios
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content class="content-container">
+    <app-admin-header (menuClicked)="toggleSidenav()"></app-admin-header>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

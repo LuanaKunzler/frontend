@@ -1,0 +1,121 @@
+<div class="shipping">
+
+    <div *ngIf="innerLoading" class="loader"></div>
+  
+    <div *ngIf="!innerLoading">
+      <form [formGroup]="shippingForm" (ngSubmit)="onSubmitOrderForm()">
+        <div class="info">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="country">País</label>
+                <input type="text" id="country" class="form-control" name="country" formControlName="country"
+                  [maxlength]="240">
+                <span *ngIf="shippingForm.get('country').invalid && shippingForm.get('country').touched">
+                  <span *ngIf="shippingForm.get('country').errors['required']" class="alert-danger">Este campo é obrigatório!</span>
+                </span>
+              </div>
+            </div>
+  
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="city">Cidade</label>
+                <input type="text" id="city" class="form-control" name="city" formControlName="city" [maxlength]="240">
+                <span *ngIf="shippingForm.get('city').invalid && shippingForm.get('city').touched">
+                  <span *ngIf="shippingForm.get('city').errors['required']" class="alert-danger">Este campo é obrigatório!</span>
+                </span>
+              </div>
+            </div>
+          </div>
+  
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="state">Estado</label>
+                <input type="text" id="state" class="form-control" name="state" formControlName="state" [maxlength]="240">
+                <span *ngIf="shippingForm.get('state').invalid && shippingForm.get('state').touched">
+                  <span class="alert-danger">Insira um estado válido</span>
+                </span>
+              </div>
+            </div>
+  
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="zip">Cep</label>
+                <input type="text" id="zip" class="form-control" name="zip" formControlName="zip" [maxlength]="9"
+                [minlength]="5"
+                mask="00000-000">
+                <span *ngIf="shippingForm.get('zip').invalid && shippingForm.get('zip').touched" class="alert-danger">
+                    Insira um número de CEP válido!
+                </span>
+              </div>
+            </div>
+          </div>
+  
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="shipAddress">Endereço</label>
+                <textarea type="text" id="shipAddress" class="form-control" name="shipAddress"
+                  formControlName="shipAddress" rows="3">
+  
+                </textarea>
+              </div>
+            </div>
+          </div>
+  
+          <div *ngIf="billingAddressEnabled" class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="billingAddress">Endereço de Cobrança</label>
+                <textarea type="text" id="billingAddress" class="form-control" name="billingAddress"
+                  formControlName="billingAddress" rows="3">
+  
+                </textarea>
+              </div>
+            </div>
+          </div>
+  
+          <div class="row">
+            <div class="same col-md-12" [ngClass]="!billingAddressEnabled ? 'active' : ''"
+              (click)="billingAddressEnabled = false">
+              <div></div>
+              <span>Meu endereço de cobrança é o mesmo que meu endereço de entrega.</span>
+            </div>
+          </div>
+  
+          <div class="row">
+            <div class="different col-md-12" [ngClass]="billingAddressEnabled ? 'active' : ''"
+              (click)="billingAddressEnabled = true">
+              <div></div>
+              <span>Meu endereço de cobrança não é o mesmo que meu endereço de entrega.</span>
+            </div>
+          </div>
+  
+  
+        </div>
+  
+  
+        <div class="row">
+          <div class="col-md-6">
+          </div>
+          <div class="controls col-md-6">
+            <div class="row">
+              <div class="col-md-6">
+                <a routerLink="/checkout/personal" class="btn btn-secondary back" type="button">
+                  Voltar
+                </a>
+              </div>
+              <div class="col-md-6">
+                <button class="btn btn-info next" type="submit" [disabled]="shippingForm.invalid || shippingForm.pending">
+                  Continuar
+                </button>
+              </div>
+            </div>
+          </div>
+  
+        </div>
+      </form>
+    </div>
+  </div>
+  

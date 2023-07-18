@@ -1,0 +1,84 @@
+<div class="modal-content">
+  <div class="report-title">Parâmetros do Relatório</div>
+
+  <div class="parameters-content">
+    <form [formGroup]="reportForm" id="reportForm" (ngSubmit)="onGenerateReport()">
+      <div *ngIf="data.reportName === 'periodico_vendas'">
+        <div class="mb-3">
+          <label for="startDate">Data de Início:</label>
+          <input type="date" class="form-control" formControlName="startDate" />
+          <span
+              *ngIf="
+                reportForm.get('startDate').invalid && reportForm.get('startDate').touched
+              "
+              class="alert-danger"
+            >
+              Este campo é obrigatório!
+            </span>
+        </div>
+
+        <div class="mb-3">
+          <label for="endDate">Data de Fim:</label>
+          <input type="date" class="form-control" formControlName="endDate" />
+          <span
+              *ngIf="
+                reportForm.get('endDate').invalid && reportForm.get('endDate').touched
+              "
+              class="alert-danger"
+            >
+              Este campo é obrigatório!
+            </span>
+        </div>
+      </div>
+
+      <div *ngIf="data.reportName === 'vendas_categoria'">
+        <div class="mb-3">
+          <label>Categoria:</label>
+          <select class="form-control" formControlName="category">
+            <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+          </select>
+          <span
+              *ngIf="
+                reportForm.get('category').invalid && reportForm.get('category').touched
+              "
+              class="alert-danger"
+            >
+              Este campo é obrigatório!
+            </span>
+        </div>
+
+        <div class="mb-3">
+          <label for="startDate">Data de Início:</label>
+          <input type="date" class="form-control" formControlName="startDate" />
+          <span
+              *ngIf="
+                reportForm.get('startDate').invalid && reportForm.get('startDate').touched
+              "
+              class="alert-danger"
+            >
+              Este campo é obrigatório!
+            </span>
+        </div>
+
+        <div class="mb-3">
+          <label for="endDate">Data de Fim:</label>
+          <input type="date" class="form-control" formControlName="endDate" />
+          <span
+              *ngIf="
+                reportForm.get('endDate').invalid && reportForm.get('endDate').touched
+              "
+              class="alert-danger"
+            >
+              Este campo é obrigatório!
+            </span>
+        </div>
+      </div>
+    </form>
+    <div class="parameters-buttons justify-content-center align-items-center">
+      <button class="generate-btn" type="submit" form="reportForm" mat-button mat-raised-button color="primary" [disabled]="reportForm.invalid || reportForm.pending">
+        Gerar Relatório
+      </button>
+      <button class="cancel-btn" mat-button mat-raised-button (click)="onCancel()">Cancelar</button>
+    </div>
+  </div>
+</div>

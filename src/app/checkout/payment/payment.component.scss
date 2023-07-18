@@ -1,0 +1,66 @@
+.payment {
+  position: relative;
+  top: 70px;
+
+  .info {
+    min-height: 35vh;
+    label {
+      font-size: 14px;
+      color: gray;
+      font-weight: bold;
+    }
+
+    input,
+    select {
+      margin-bottom: 10px;
+      border-radius: 10px;
+    }
+
+    #cardOwner {
+      text-transform: uppercase;
+    }
+
+    .warning {
+      p {
+        color: gray;
+        font-size: 12px;
+      }
+    }
+
+    .alert-danger {
+      margin-left: 10px;
+      width: 60%;
+      position: relative;
+      color: #721c24;
+      background-color: #f8d7da;
+      border-color: #f5c6cb;
+    }
+  }
+
+  .controls {
+    button,
+    a {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 100%;
+      padding-left: 15px;
+      padding-right: 15px;
+      font-size: 14px;
+      border-radius: 10px;
+    }
+
+    .back {
+      color: #333;
+      font-weight: bold;
+    }
+  }
+
+  
+
+  @media only screen and (max-width: 767px) {
+    .container-fluid {
+      width: 95% !important;
+    }
+  }
+}

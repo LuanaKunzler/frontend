@@ -1,0 +1,26 @@
+<div class="mat-elevation-z8 report-content">
+  <div class="reports-title">Relatórios</div>
+
+  <mat-card>
+    <div class="report-name">
+      <i class="bx bx-bar-chart-alt bx-lg"></i>
+      <span>RELATÓRIO PERIÓDICO DE VENDAS</span>
+    </div>
+    <div class="buttons-report">
+      <button class="btn-reports" color="primary" mat-raised-button (click)="openExportModal('periodico_vendas')">
+        EXPORTAR
+      </button>
+    </div>
+  </mat-card>
+  <mat-card>
+    <div class="report-name">
+      <i class="bx bx-bar-chart-alt bx-lg"></i>
+      <span>RELATÓRIO DE VENDAS POR CATEGORIA</span>
+    </div>
+    <div class="buttons-report">
+      <button class="btn-reports" color="primary" mat-raised-button (click)="openExportModal('vendas_categoria')">
+        EXPORTAR
+      </button>
+    </div>
+  </mat-card>
+</div>
