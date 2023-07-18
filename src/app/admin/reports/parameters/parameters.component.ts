@@ -30,7 +30,6 @@ export class ParametersComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    //this.initForm();
     switch (this.data.reportName) {
       case 'periodico_vendas':
         this.addPeriodicoVendasFields();

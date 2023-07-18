@@ -87,7 +87,7 @@
           Data do Registro
         </th>
         <td mat-cell *matCellDef="let row">
-          {{convertDate(row.dateCreated) }}
+          {{ row.dateCreated | date : "dd/MM/yyyy" }}
         </td>
       </ng-container>
 

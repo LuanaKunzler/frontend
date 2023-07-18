@@ -33,52 +33,28 @@ export class UserCreateComponent implements OnInit {
         Validators.maxLength(52),
       ]),
       firstName: new FormControl(null, [
-        Validators.pattern('^[a-zA-Z\\s]+$'),
-        BlankValidators.checkIfBlankValidator,
-        Validators.minLength(3),
-        Validators.maxLength(52),
+        BlankValidators.checkIfBlankValidator
       ]),
       lastName: new FormControl(null, [
-        Validators.pattern('^[a-zA-Z\\s]+$'),
-        BlankValidators.checkIfBlankValidator,
-        Validators.minLength(3),
-        Validators.maxLength(52),
+        BlankValidators.checkIfBlankValidator
       ]),
       phone: new FormControl(null, [
-        BlankValidators.checkIfBlankValidator,
-        Validators.pattern('[0-9]+'),
-        Validators.minLength(11),
-        Validators.maxLength(12),
+        BlankValidators.checkIfBlankValidator
       ]),
       address: new FormControl(null, [
-        Validators.pattern('[0-9a-zA-Z #,-]+'),
-        BlankValidators.checkIfBlankValidator,
-        Validators.minLength(3),
-        Validators.maxLength(240),
+        BlankValidators.checkIfBlankValidator
       ]),
       city: new FormControl(null, [
-        Validators.pattern('^[a-zA-Z\\s]+$'),
-        BlankValidators.checkIfBlankValidator,
-        Validators.minLength(3),
-        Validators.maxLength(100),
+        BlankValidators.checkIfBlankValidator
       ]),
       state: new FormControl(null, [
-        Validators.pattern('^[a-zA-Z\\s]+$'),
-        BlankValidators.checkIfBlankValidator,
-        Validators.minLength(3),
-        Validators.maxLength(40),
+        BlankValidators.checkIfBlankValidator
       ]),
       zip: new FormControl(null, [
-        Validators.pattern('^[0-9]*$'),
-        BlankValidators.checkIfBlankValidator,
-        Validators.maxLength(8),
-        Validators.minLength(5),
+        BlankValidators.checkIfBlankValidator
       ]),
       country: new FormControl(null, [
-        Validators.pattern('^[a-zA-Z\\s]+$'),
-        BlankValidators.checkIfBlankValidator,
-        Validators.minLength(3),
-        Validators.maxLength(40),
+        BlankValidators.checkIfBlankValidator
       ]),
       role: new FormArray([], Validators.required),
       enabled: new FormControl(null, [Validators.required]),

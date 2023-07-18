@@ -28,7 +28,6 @@ export class ReportsComponent {
         startDate: null,
         endDate: null,
       },
-      // Adicione mais definições de parâmetros para outros relatórios
     };
   
     const dialogRef: MatDialogRef<ParametersComponent> = this.dialog.open(
@@ -46,7 +45,7 @@ export class ReportsComponent {
   
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'confirm') {
-        // Implemente a lógica para gerar o relatório com os parâmetros
+        
       }
     });
   }
